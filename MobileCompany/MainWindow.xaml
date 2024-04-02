@@ -1,0 +1,93 @@
+﻿<Window x:Class="MobileCompany.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MobileCompany"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Заголовок -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+            <TextBlock Text="Таблица абонентов" FontSize="20" FontWeight="Bold"/>
+            <Button Content="Поиск" Margin="10" Click="SearchButton_Click"/>
+            <Button Content="Улицы" Margin="10"/>
+            <Button Content="Выгрузить CSV" Margin="10"/>
+           
+           
+        </StackPanel>
+       
+        <!-- Таблица абонентов -->
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Abonents}" AutoGenerateColumns="True"/>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Popup x:Name="NumberSearchPopup" IsOpen="False" StaysOpen="False">
+                <Popup.Style>
+                    <Style TargetType="Popup">
+                        <Setter Property="PlacementTarget" Value="{Binding ElementName=ParentWindow}"/>
+                        <!-- Добавим анимацию и тень -->
+                        <Setter Property="PopupAnimation" Value="Fade"/>
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect ShadowDepth="5" Color="Gray" Opacity="0.7"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Popup.Style>
+                <Border Background="LightGray" BorderBrush="Black" BorderThickness="1" Margin="50">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Padding" Value="10" />
+                        </Style>
+                    </Border.Style>
+                    <!-- Элементы управления для модального окна "Поиска по номеру" -->
+                    <StackPanel Margin="20">
+                        <TextBlock Text="Поиск по номеру" FontSize="16" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                        <TextBox x:Name="txtSearchNumber" Text="{Binding SearchLastName, Mode=TwoWay}" Margin="0 0 0 10">
+                            <TextBox.Style>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="Width" Value="200"/>
+                                    <Setter Property="Height" Value="30"/>
+                                    <Setter Property="FontSize" Value="14"/>
+                                    <Setter Property="Padding" Value="5"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                    <Setter Property="BorderBrush" Value="Black"/>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
+                        <Button Content="Поиск" Command="{Binding Search}" HorizontalAlignment="Center">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Padding" Value="10 5"/>
+                                    <Setter Property="FontSize" Value="14"/>
+                                    <Setter Property="Background" Value="LightBlue"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                    <Setter Property="BorderBrush" Value="Black"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="Width" Value="100"/>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </StackPanel>
+                </Border>
+            </Popup>
+
+
+            <Popup x:Name="StreetSearchPopup" IsOpen="False" StaysOpen="False">
+                <Border Background="LightGray" BorderBrush="Black" BorderThickness="1" Margin="50">
+                    <!-- Элементы управления для модального окна "Улицы" -->
+                    <StackPanel Margin="20">
+                        <TextBlock Text="Улицы" FontSize="16" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                        <!-- Добавьте здесь необходимые элементы управления для поиска по улицам -->
+                    </StackPanel>
+                </Border>
+            </Popup>
+        </StackPanel>
+    </Grid>
+    
+</Window>
