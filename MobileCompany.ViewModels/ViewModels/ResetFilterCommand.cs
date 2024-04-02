@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobileCompany.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,18 +13,20 @@ namespace MobileCompany.ViewModels.ViewModels
         public event EventHandler? CanExecuteChanged;
 
         private readonly AbonentViewModel _viewModel;
-        public ResetFilterCommand(AbonentViewModel viewModel)
+        private readonly AppDbContext _context;
+        public ResetFilterCommand(AbonentViewModel viewModel, AppDbContext context)
         {
             _viewModel = viewModel;
+            this._context = context;
         }
-        public bool CanExecute(object? parameter)
+        public bool CanExecute(object parameter)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public void Execute(object? parameter)
         {
-          
+            _viewModel.Abonents = _context.Abonents.ToList();
         }
     }
 }

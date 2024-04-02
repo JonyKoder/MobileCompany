@@ -11,11 +11,12 @@ namespace MobileCompany.ViewModels.ViewModels
         private readonly AppDbContext _context;
 
         public ICommand Search { get; set; }
+        public ICommand ResetFilter { get; set; }
 
         public AbonentViewModel()
         {
             _context = new AppDbContext();  // Создание объекта контекста данных
-            Search = new SearchCommand(this);
+            Search = new SearchCommand(this, _context);
         }
 
         private string _searchLastName;
