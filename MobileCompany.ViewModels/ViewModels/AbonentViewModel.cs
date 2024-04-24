@@ -3,20 +3,22 @@ using MobileCompany.Models.Models;
 using MobileCompany.ViewModels.Commands;
 using System.ComponentModel;
 using System.Windows.Input;
+using MobileCompany.BL.Interfaces;
+using MobileCompany.ViewModels.Dto;
 
 namespace MobileCompany.ViewModels.ViewModels
 {
     public class AbonentViewModel : INotifyPropertyChanged
     {
-        private readonly AppDbContext _context;
+        private readonly IMobileCompanyService _mobileCompanyService;
 
         public ICommand Search { get; set; }
         public ICommand ResetFilter { get; set; }
 
-        public AbonentViewModel()
+        public AbonentViewModel(IMobileCompanyService mobileCompanyService)
         {
-            _context = new AppDbContext();  // Создание объекта контекста данных
-            Search = new SearchCommand(this, _context);
+            _mobileCompanyService = mobileCompanyService;
+            Search = new SearchCommand(this, _mobileCompanyService);
         }
 
         private string _searchLastName;
@@ -31,14 +33,14 @@ namespace MobileCompany.ViewModels.ViewModels
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private List<Abonent> _abonents;
-        public List<Abonent> Abonents
+        private List<AbonentDto> _abonents;
+        public List<AbonentDto> Abonents
         {
             get
             {
                 if (_abonents == null)
                 {
-                    _abonents = _context.Abonents.ToList();  // Получение списка абонентов из контекста
+                    _abonents = _mobileCompanyService.GetAllAbonents();  // Получение списка абонентов из контекста
                 }
                 return _abonents;
             }

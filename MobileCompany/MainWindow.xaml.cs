@@ -1,6 +1,7 @@
 ﻿using MobileCompany.Models;
 using MobileCompany.ViewModels.ViewModels;
 using System.Windows;
+using MobileCompany.BL.Interfaces;
 
 namespace MobileCompany
 {
@@ -9,9 +10,11 @@ namespace MobileCompany
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly IMobileCompanyService _mobileCompanyService;
         public MainWindow()
         {
-            DataContext = new AbonentViewModel();
+            _mobileCompanyService = App.Resolve<IMobileCompanyService>();
+            DataContext = new AbonentViewModel(_mobileCompanyService);
             using (var context = new AppDbContext())
             {
                 context.Database.EnsureCreated();
@@ -21,9 +24,6 @@ namespace MobileCompany
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-        
-            // Выполните поиск с использованием введенного номера абонента
-            // Здесь можно написать логику поиска по введенному номеру
 
             NumberSearchPopup.IsOpen = true; // Закрытие попапа после выполнения поиска
         }

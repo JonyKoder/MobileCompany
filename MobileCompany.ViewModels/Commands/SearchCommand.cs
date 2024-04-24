@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using MobileCompany.BL.Interfaces;
 using MobileCompany.Models;
 using MobileCompany.ViewModels.ViewModels;
 
@@ -13,11 +14,11 @@ namespace MobileCompany.ViewModels.Commands
     {
 
         private readonly AbonentViewModel _viewModel;
-        private readonly AppDbContext _context;
-        public SearchCommand(AbonentViewModel viewModel, AppDbContext context)
+        private readonly IMobileCompanyService _mobileCompanyService;
+        public SearchCommand(AbonentViewModel viewModel, IMobileCompanyService mobileCompanyService)
         {
             _viewModel = viewModel;
-            this._context = context;
+            this._mobileCompanyService = mobileCompanyService;
         }
         public event EventHandler CanExecuteChanged;
 
@@ -31,8 +32,8 @@ namespace MobileCompany.ViewModels.Commands
             string searchLastName = _viewModel.SearchLastName;
             if (!string.IsNullOrEmpty(searchLastName))
             {
-                _viewModel.Abonents = _context.Abonents.ToList();
-                _viewModel.Abonents = _viewModel.Abonents.Where(a => a.LastName.ToLower().Trim().Contains(searchLastName.ToLower().Trim())).ToList();
+                _viewModel.Abonents = _mobileCompanyService.GetAllAbonents();
+                _viewModel.Abonents = _mobileCompanyService.GetAbonentByLastName(searchLastName);
             }
         }
     }

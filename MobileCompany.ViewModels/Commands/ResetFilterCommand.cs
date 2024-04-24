@@ -1,10 +1,6 @@
-﻿using MobileCompany.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
+using MobileCompany.BL.Interfaces;
+using MobileCompany.Models;
 
 namespace MobileCompany.ViewModels.ViewModels
 {
@@ -13,11 +9,11 @@ namespace MobileCompany.ViewModels.ViewModels
         public event EventHandler? CanExecuteChanged;
 
         private readonly AbonentViewModel _viewModel;
-        private readonly AppDbContext _context;
-        public ResetFilterCommand(AbonentViewModel viewModel, AppDbContext context)
+        private readonly IMobileCompanyService _service;
+        public ResetFilterCommand(AbonentViewModel viewModel, IMobileCompanyService service)
         {
             _viewModel = viewModel;
-            this._context = context;
+            this._service = service;
         }
         public bool CanExecute(object parameter)
         {
@@ -26,7 +22,7 @@ namespace MobileCompany.ViewModels.ViewModels
 
         public void Execute(object? parameter)
         {
-            _viewModel.Abonents = _context.Abonents.ToList();
+            _viewModel.Abonents = _service.GetAllAbonents();
         }
     }
 }

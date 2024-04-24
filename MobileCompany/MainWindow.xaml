@@ -46,7 +46,7 @@
                             <Setter Property="Padding" Value="10" />
                         </Style>
                     </Border.Style>
-                    <!-- Элементы управления для модального окна "Поиска по номеру" -->
+                    <!-- Элементы управления для модального окна "Фамилии" -->
                     <StackPanel Margin="20">
                         <TextBlock Text="Поиск по фамилии" FontSize="16" HorizontalAlignment="Center" Margin="0 0 0 10"/>
                         <TextBox x:Name="txtSearchNumber" Text="{Binding SearchLastName, Mode=TwoWay}" Margin="0 0 0 10">
