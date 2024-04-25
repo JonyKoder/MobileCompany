@@ -17,8 +17,8 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
             <TextBlock Text="Таблица абонентов" FontSize="20" FontWeight="Bold"/>
             <Button Content="Поиск" Margin="10" Click="SearchButton_Click"/>
-            <Button Content="Улицы" Margin="10"/>
-            <Button Content="Выгрузить CSV" Margin="10"/>
+            <Button Content="Улицы" Click="ButtonBase_OnClick" Margin="10"/>
+            <Button Content="Выгрузить CSV" Click="ButtonBase_OnClick" Command="{Binding ExportCSV}" Margin="10"/>
             <Button Background="Red" BorderThickness="2" Command="{Binding ResetFilter}" Foreground="White" Content="Сброс поиска" Margin="10"/>
 
 
@@ -84,10 +84,18 @@
                     <!-- Элементы управления для модального окна "Улицы" -->
                     <StackPanel Margin="20">
                         <TextBlock Text="Улицы" FontSize="16" HorizontalAlignment="Center" Margin="0 0 0 10"/>
-                        <!-- Добавьте здесь необходимые элементы управления для поиска по улицам -->
+
+                        <DataGrid ItemsSource="{Binding Abonents}" AutoGenerateColumns="False" Margin="0 10">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Улица" Binding="{Binding Address}"/>
+                                <DataGridTextColumn Header="Количество абонентов" Binding="{Binding SubscribersCount}"/>
+                                <!-- Добавьте дополнительные столбцы по необходимости -->
+                            </DataGrid.Columns>
+                        </DataGrid>
                     </StackPanel>
                 </Border>
             </Popup>
+
         </StackPanel>
     </Grid>
     

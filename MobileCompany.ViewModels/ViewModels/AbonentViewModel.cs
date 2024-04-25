@@ -2,6 +2,7 @@
 using MobileCompany.Models.Models;
 using MobileCompany.ViewModels.Commands;
 using System.ComponentModel;
+using System.Text;
 using System.Windows.Input;
 using MobileCompany.BL.Interfaces;
 using MobileCompany.ViewModels.Dto;
@@ -13,14 +14,17 @@ namespace MobileCompany.ViewModels.ViewModels
         private readonly IMobileCompanyService _mobileCompanyService;
 
         public ICommand Search { get; set; }
+        public ICommand ExportCSV { get; set; }
         public ICommand ResetFilter { get; set; }
 
         public AbonentViewModel(IMobileCompanyService mobileCompanyService)
         {
             _mobileCompanyService = mobileCompanyService;
             Search = new SearchCommand(this, _mobileCompanyService);
+            ExportCSV = new ExportCommand(this);
         }
 
+       
         private string _searchLastName;
         public string SearchLastName
         {
@@ -32,7 +36,7 @@ namespace MobileCompany.ViewModels.ViewModels
             }
         }
         public event PropertyChangedEventHandler? PropertyChanged;
-
+       
         private List<AbonentDto> _abonents;
         public List<AbonentDto> Abonents
         {

@@ -1,4 +1,5 @@
-﻿using MobileCompany.Models;
+﻿using System.Text;
+using MobileCompany.Models;
 using MobileCompany.ViewModels.ViewModels;
 using System.Windows;
 using MobileCompany.BL.Interfaces;
@@ -21,7 +22,7 @@ namespace MobileCompany
             }
             InitializeComponent();
         }
-
+       
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -35,6 +36,18 @@ namespace MobileCompany
 
             NumberSearchPopup.IsOpen = false; // Закрытие попапа после выполнения поиска
 
+        }
+
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            string messageBoxText = "Файл CSV сохранён в мои документы";
+            string caption = "Word Processor";
+            MessageBoxButton button = MessageBoxButton.YesNoCancel;
+            MessageBoxImage icon = MessageBoxImage.Warning;
+            MessageBoxResult result;
+
+            MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
         }
     }
 }
